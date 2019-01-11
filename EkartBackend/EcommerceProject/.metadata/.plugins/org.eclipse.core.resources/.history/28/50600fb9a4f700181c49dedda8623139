@@ -1,0 +1,82 @@
+package com.niit.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.niit.dao.ProductDAO;
+import com.niit.model.Product;
+
+
+
+@Controller
+public class ProductController {
+	@Autowired
+	ProductDAO productDAO;
+	
+	@RequestMapping(value="/product")
+	public String showProductPage(Model m)
+	{
+		
+		List<Product>listProducts=productDAO.listProducts();
+		m.addAttribute("productlist",listProducts);
+		
+		Product product=new Product();
+		m.addAttribute("product",product);
+		return "Product";
+	}
+	@RequestMapping(value="/InsertProduct",method=RequestMethod.POST)
+	public String insertProduct(@ModelAttribute("product")Product product,Model m)
+	{
+		productDAO.add(product);
+		Product product1=new Product();
+		m.addAttribute("product", product1);
+
+		List<Product>listProducts=productDAO.listProducts();
+		m.addAttribute("productlist", listProducts);
+		
+		return "Product";
+	}
+	@RequestMapping(value="/editProduct/{productID}")
+	public String editProduct(@PathVariable("productID")int productID,Model m)
+	{
+	
+		Product product=productDAO.getProduct(productID);
+		m.addAttribute("product", product);
+		
+		List<Product>listProducts=productDAO.listProducts();
+		m.addAttribute("productlist", listProducts);
+		return "Product";
+		
+		
+	}
+	@RequestMapping(value="/deleteProduct/{productID}")
+	public String deleteProduct(@PathVariable("productID")int productID,Model m)
+	{
+	
+		Product product1=productDAO.getProduct(productID);
+		productDAO.delete(product1);
+		m.addAttribute("product", product1);
+		
+		List<Product>listProducts=productDAO.listProducts();
+		m.addAttribute("productlist", listProducts);
+		return "Product";
+		
+		
+	}
+		
+		
+}		
+		
+		
+		
+
+
+
+

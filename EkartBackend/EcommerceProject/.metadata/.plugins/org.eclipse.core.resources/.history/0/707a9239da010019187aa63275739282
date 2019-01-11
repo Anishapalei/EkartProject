@@ -1,0 +1,40 @@
+package com.niit.controller;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.niit.dao.CartDAO;
+import com.niit.dao.ProductDAO;
+import com.niit.model.Cart;
+
+@Entity
+@Table
+
+public class CartController
+{
+	@Autowired
+	CartDAO cartDAO;
+	@Autowired
+	ProductDAO productDAO;
+	
+	
+	@RequestMapping(value="/addToCart/{productId}")
+	public String addToCart(@PathVariable("productId")int productId,@RequestParam("")int quantity,Model m,HttpSession s)
+	{
+		Cart cart=new Cart();
+		Product product=ProductDAO.getProduct(productId);
+		cart.setProductId(productId);
+		return "Cart";
+		
+		
+	}
+	
+	
+}
+

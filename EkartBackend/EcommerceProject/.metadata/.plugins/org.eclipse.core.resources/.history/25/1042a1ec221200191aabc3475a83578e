@@ -1,0 +1,106 @@
+
+package com.niit.controller;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.niit.dao.CategoryDAO;
+import com.niit.dao.ProductDAO;
+import com.niit.dao.UserDAO;
+import com.niit.model.Category;
+import com.niit.model.Product;
+import com.niit.model.UserDetail;
+
+@Controller
+
+public class PageController {
+	
+	@Autowired
+	UserDAO userDAO;
+	@Autowired
+	ProductDAO productDAO;
+	
+	@Autowired
+	CategoryDAO categoryDAO;
+	
+
+//	@RequestMapping(value="/")
+//	public String showLo()
+//	{
+//		return "Header";
+//	}
+	
+	@RequestMapping(value="/login")
+	public String showLogin()
+	{
+		return "Login";
+	}
+	@ModelAttribute("user")
+	public UserDetail u1()
+	{
+		return new UserDetail();
+	}
+		@RequestMapping(value="/register")
+		public String showRegisterPage(Model m)
+		{
+//			UserDetail user=new UserDetail();
+//			m.addAttribute(user);
+			return "Register";
+		}
+		@RequestMapping(value="/registerUser",method=RequestMethod.POST)
+		public String RegisterUser(@ModelAttribute("user")UserDetail user,Model m)
+		{
+			user.setRole("ROLE_USER");
+			user.setEnabled(true);
+			userDAO.registerUser(user);
+			return "redirect:/login";
+		}
+	
+	@RequestMapping(value="/aboutus")
+	public String showAboutUs()
+	{
+		return "AboutUs";
+	}
+	
+
+	@RequestMapping("/productDisplay")
+	public String showproductdsipPage() {
+		return "ProductDisplay";
+	}
+	@RequestMapping(value= {"/home","/"})
+	public String getHeader( Model m) {
+
+		List<Product> listProducts=productDAO.listProducts();
+		m.addAttribute("productlist", listProducts);
+		
+		
+		List<Category> listCategories=categoryDAO.listCategories();
+		m.addAttribute("categoryList", this.getCategoryList(listCategories));
+
+		return "Home";
+	}
+
+	public LinkedHashMap<Integer,String> getCategoryList(List<Category> listCategory)	
+	{
+		LinkedHashMap<Integer,String> listCategories=new LinkedHashMap<Integer,String>();
+		
+		for(Category category:listCategory)
+		{
+			listCategories.put(category.getCategoryId(),category.getCategoryName());
+		}
+		return listCategories;
+	}
+	}
+
+
+	
+
+
+

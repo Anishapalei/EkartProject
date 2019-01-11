@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: com.niit.test.CategoryDAOTestCase
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 5.543 s <<< FAILURE! - in com.niit.test.CategoryDAOTestCase
+com.niit.test.CategoryDAOTestCase  Time elapsed: 5.54 s  <<< ERROR!
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'cartDAO': Injection of autowired dependencies failed; nested exception is org.springframework.beans.factory.BeanCreationException: Could not autowire field: org.hibernate.SessionFactory com.niit.dao.impl.CartDAOImpl.sessionFactory; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in com.niit.config.DBconfig: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.hibernate.SessionFactory]: Factory method 'getSessionFactory' threw exception; nested exception is java.lang.NoSuchMethodError: org.jboss.logging.Logger.debugf(Ljava/lang/String;I)V
+	at com.niit.test.CategoryDAOTestCase.executeFirst(CategoryDAOTestCase.java:23)
+Caused by: org.springframework.beans.factory.BeanCreationException: Could not autowire field: org.hibernate.SessionFactory com.niit.dao.impl.CartDAOImpl.sessionFactory; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in com.niit.config.DBconfig: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.hibernate.SessionFactory]: Factory method 'getSessionFactory' threw exception; nested exception is java.lang.NoSuchMethodError: org.jboss.logging.Logger.debugf(Ljava/lang/String;I)V
+	at com.niit.test.CategoryDAOTestCase.executeFirst(CategoryDAOTestCase.java:23)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionFactory' defined in com.niit.config.DBconfig: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.hibernate.SessionFactory]: Factory method 'getSessionFactory' threw exception; nested exception is java.lang.NoSuchMethodError: org.jboss.logging.Logger.debugf(Ljava/lang/String;I)V
+	at com.niit.test.CategoryDAOTestCase.executeFirst(CategoryDAOTestCase.java:23)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.hibernate.SessionFactory]: Factory method 'getSessionFactory' threw exception; nested exception is java.lang.NoSuchMethodError: org.jboss.logging.Logger.debugf(Ljava/lang/String;I)V
+	at com.niit.test.CategoryDAOTestCase.executeFirst(CategoryDAOTestCase.java:23)
+Caused by: java.lang.NoSuchMethodError: org.jboss.logging.Logger.debugf(Ljava/lang/String;I)V
+	at com.niit.test.CategoryDAOTestCase.executeFirst(CategoryDAOTestCase.java:23)
+
